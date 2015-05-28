@@ -1,9 +1,9 @@
 {
   "name": "express-request-version",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Request versioning middleware for express.",
   "repository": "https://github.com/elliotttf/express-request-version",
-  "main": "lib/versoner.js",
+  "main": "lib/versioner.js",
   "scripts": {
     "test": "gulp test"
   },
