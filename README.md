@@ -3,6 +3,8 @@
 This middleware allows a version property to be added to an express request object and provides
 basic version validation.
 
+The resulting version will exist in the `req.version` property of all request objects.
+
 ## Usage
 
 ### Version by path
