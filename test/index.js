@@ -104,6 +104,17 @@ module.exports = {
         test.done();
       }.bind(this));
     },
+    withEmptyPrefix: function (test) {
+      test.expect(1);
+
+      var middleware = version.setByAccept('vnd.test', null, '');
+      this.req.accept = 'application/vnd.test.1+json';
+
+      middleware(this.req, {}, function () {
+        test.equal(this.req.version, '1', 'Version not set correctly by accept header.');
+        test.done();
+      }.bind(this));
+    },
     withSuffix: function (test) {
       test.expect(1);
 
