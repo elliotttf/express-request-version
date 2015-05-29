@@ -29,7 +29,7 @@ app.use(setVersion('vnd.myorg', '::', '', '+xml'));
 app.use(setVersion('vnd.myorg', '::');
 ```
 
-## Version validation
+### Version validation
 
 You can define a set of supported versions, and raise an error if a request is made with an
 unsupported version:
