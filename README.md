@@ -1,6 +1,7 @@
 # Express Request Version
 
 [![Build Status](https://travis-ci.org/elliotttf/express-request-version.svg)](https://travis-ci.org/elliotttf/express-request-version)
+[![Coverage Status](https://coveralls.io/repos/elliotttf/express-request-version/badge.svg)](https://coveralls.io/r/elliotttf/express-request-version)
 
 This middleware allows a version property to be added to an express request object and provides
 basic version validation.
