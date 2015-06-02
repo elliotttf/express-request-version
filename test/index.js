@@ -2,7 +2,7 @@ var version = require('../lib/versioner');
 module.exports = {
   setByPath: {
     default: function (test) {
-      test.expect(3);
+      test.expect(4);
 
       var middleware = version.setByPath();
       var req = { path: '/v1/foo' };
@@ -16,7 +16,13 @@ module.exports = {
           req.path = '/v1.1.1/foo';
           middleware(req, {}, function () {
             test.equal(req.version, 'v1.1.1');
-            test.done();
+
+            req.path = '/foo';
+            delete req.version;
+            middleware(req, {}, function () {
+              test.equal(typeof req.version, 'undefined');
+              test.done();
+            });
           });
         });
       });
@@ -62,7 +68,7 @@ module.exports = {
       test.done();
     },
     default: function (test) {
-      test.expect(3);
+      test.expect(4);
 
       var middleware = version.setByAccept('vnd.test');
 
@@ -77,7 +83,13 @@ module.exports = {
           this.req.accept = 'application/vnd.test.v1.1.1+json';
           middleware(this.req, {}, function () {
             test.equal(this.req.version, 'v1.1.1', 'Version not set correctly by accept header.');
-            test.done();
+
+            delete this.req.accept;
+            delete this.req.version;
+            middleware(this.req, {}, function () {
+              test.equal(typeof this.req.version, 'undefined');
+              test.done();
+            }.bind(this));
           }.bind(this));
         }.bind(this));
       }.bind(this));
