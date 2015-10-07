@@ -5,7 +5,7 @@ module.exports = {
       test.expect(4);
 
       var middleware = version.setByPath();
-      var req = { path: '/v1/foo' };
+      var req = {path: '/v1/foo'};
       middleware(req, {}, function () {
         test.equal(req.version, 'v1', 'Version not set correctly by path.');
 
@@ -31,7 +31,7 @@ module.exports = {
       test.expect(1);
 
       var middleware = version.setByPath('/prefix/');
-      var req = { path: '/prefix/v1/foo' };
+      var req = {path: '/prefix/v1/foo'};
       middleware(req, {}, function () {
         test.equal(req.version, 'v1', 'Version not set correctly by path.');
         test.done();
@@ -41,7 +41,7 @@ module.exports = {
       test.expect(1);
 
       var middleware = version.setByPath(null, 'a');
-      var req = { path: '/a1/foo' };
+      var req = {path: '/a1/foo'};
       middleware(req, {}, function () {
         test.equal(req.version, 'a1', 'Version not set correctly by path.');
         test.done();
@@ -160,7 +160,7 @@ module.exports = {
 
       var middleware = version.validateVersion(['v1', 'v2', 'v3']);
 
-      var req = { version: 'v1' };
+      var req = {version: 'v1'};
       middleware(req, {}, function (err) {
         test.ok(!err, 'Version validated.');
 
@@ -174,9 +174,9 @@ module.exports = {
     withMessage: function (test) {
       test.expect(1);
 
-      var middleware = version.validateVersion([ 'v1' ], 'Whoops');
+      var middleware = version.validateVersion(['v1'], 'Whoops');
 
-      var req = { version: 'a1' };
+      var req = {version: 'a1'};
       middleware(req, {}, function (err) {
         test.equal('Whoops', err.message, 'Error message not set.');
         test.done();
