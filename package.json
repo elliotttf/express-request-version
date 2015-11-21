@@ -19,7 +19,7 @@
     "lodash": "3.10.1"
   },
   "devDependencies": {
-    "ghooks": "0.3.2",
+    "ghooks": "1.0.1",
     "gulp": "3.9.0",
     "gulp-coveralls": "0.1.4",
     "gulp-eslint": "1.0.0",
