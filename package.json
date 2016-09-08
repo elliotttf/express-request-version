@@ -1,6 +1,6 @@
 {
   "name": "express-request-version",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Request versioning middleware for express.",
   "repository": "https://github.com/elliotttf/express-request-version",
   "main": "lib/versioner.js",
