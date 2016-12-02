@@ -209,6 +209,14 @@ module.exports = {
       test.throws(() => version.setBySemverAccept(), 'Error not thrown.');
       test.done();
     },
+    missingVendorPrefix(test) {
+      test.expect(1);
+
+      test.throws(
+        () => version.setBySemverAccept(this.supportedVersions),
+        'Error not thrown.');
+      test.done();
+    },
     default(test) {
       test.expect(7);
 
