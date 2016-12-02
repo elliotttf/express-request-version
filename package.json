@@ -1,6 +1,6 @@
 {
   "name": "express-request-version",
-  "version": "1.0.8",
+  "version": "0.0.0-development",
   "description": "Request versioning middleware for express.",
   "repository": "https://github.com/elliotttf/express-request-version",
   "main": "lib/versioner.js",
@@ -8,7 +8,8 @@
     "test": "istanbul cover --print both nodeunit ./test",
     "lint": "eslint .",
     "coverage": "istanbul check-coverage --statements 100 --lines 100 --branches 100 --functions 100",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "keywords": [
     "express",
@@ -31,7 +32,8 @@
     "eslint-plugin-import": "^2.2.0",
     "ghooks": "^1.2.1",
     "istanbul": "^0.4.3",
-    "nodeunit": "^0.10.2"
+    "nodeunit": "^0.10.2",
+    "semantic-release": "^6.3.2"
   },
   "config": {
     "ghooks": {
