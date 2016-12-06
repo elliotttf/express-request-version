@@ -122,6 +122,15 @@ module.exports = {
         test.done();
       });
     },
+    encodedCaretRange(test) {
+      const middleware = version.setBySemverPath(['v1.0.0']);
+      const req = { path: '/%5Ev1.0.0/foo' };
+      middleware(req, {}, () => {
+        test.equal(req.origVersion, '^v1.0.0', 'Unexpected origVersion');
+        test.equal(req.version, 'v1.0.0', 'Unexpected version');
+        test.done();
+      });
+    },
   },
   setByAccept: {
     setUp(cb) {
