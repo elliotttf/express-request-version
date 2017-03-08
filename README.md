@@ -75,7 +75,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
   * `setByPath(pathPrefix = '/')` - Returns an express middleware that appends a
     version property to the request object based on path.
     * `pathPrefix` - Optional. A path fragment that appears before the version.
-  * `setBySemverPath(supportedVersions, pathPrefix = '/')` - Returns an express
+  * `setBySemverPath(supportedVersions, pathPrefix = '/', preventPrereleaseLock = false, prereleaseMessage = PRERELEASE_MESSAGE)` - Returns an express
     middleware that appends a matched version and requested version property to the
     request object based on path.
     * `supportedVersions` - An array of versions that are supported.
@@ -94,7 +94,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
     * `verSeparator` - Optional. The separator to use between the vendor prefix
       and version.
     * `suffix` - Optional. The accept header suffix. Default '+json'.
-  * `setBySemverAccept(supportedVersions, vndPrefix, verSeparator = '.', suffix = '+json')` - 
+  * `setBySemverAccept(supportedVersions, vndPrefix, verSeparator = '.', suffix = '+json', preventPrereleaseLock = false, prereleaseMessage = PRERELEASE_MESSAGE)` - 
     Returns an express middleware that appends a version property to the request
     object based on accept headers.
     * `supportedVersions` - An array of versions that are supported.
