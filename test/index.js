@@ -123,6 +123,7 @@ module.exports = {
       });
     },
     encodedCaretRange(test) {
+      test.expect(2);
       const middleware = version.setBySemverPath(['v1.0.0']);
       const req = { path: '/%5Ev1.0.0/foo' };
       middleware(req, {}, () => {
@@ -130,6 +131,27 @@ module.exports = {
         test.equal(req.version, 'v1.0.0', 'Unexpected version');
         test.done();
       });
+    },
+    prerelease: {
+      allowed(test) {
+        test.expect(2);
+        const middleware = version.setBySemverPath(['v1.0.0-alpha.1']);
+        const req = { path: '/v1.0.0-alpha.1/foo' };
+        middleware(req, {}, () => {
+          test.equal(req.origVersion, 'v1.0.0-alpha.1', 'Unexpected origVersion');
+          test.equal(req.version, 'v1.0.0-alpha.1', 'Unexpected version');
+          test.done();
+        });
+      },
+      prevented(test) {
+        test.expect(1);
+        const middleware = version.setBySemverPath(['v1.0.0-alpha.1'], '/', true);
+        const req = { path: '/v1.0.0-alpha.1/foo' };
+        middleware(req, {}, (err) => {
+          test.equal(err.statusCode, 400, 'Unexpected error code.');
+          test.done();
+        });
+      },
     },
   },
   setByAccept: {
@@ -349,6 +371,32 @@ module.exports = {
         test.equal(this.req.version, 'v1.1.1', 'Unexpected version');
         test.done();
       });
+    },
+    prerelease: {
+      allowed(test) {
+        test.expect(2);
+        const middleware = version.setBySemverAccept(['v1.0.0-alpha.1'], 'vnd.test');
+        this.req.accept = 'application/vnd.test.v1.0.0-alpha.1+json';
+        middleware(this.req, {}, () => {
+          test.equal(this.req.origVersion, 'v1.0.0-alpha.1', 'Unexpected origVersion');
+          test.equal(this.req.version, 'v1.0.0-alpha.1', 'Unexpected version');
+          test.done();
+        });
+      },
+      prevented(test) {
+        test.expect(1);
+        const middleware = version.setBySemverAccept(
+          ['v1.0.0-alpha.1'],
+          'vnd.test',
+          '.',
+          '+json',
+          true);
+        this.req.accept = 'application/vnd.test.v1.0.0-alpha.1+json';
+        middleware(this.req, {}, (err) => {
+          test.equal(err.statusCode, 400, 'Unexpected error code.');
+          test.done();
+        });
+      },
     },
   },
   validate: {
