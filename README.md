@@ -1,5 +1,7 @@
 # Express Request Version
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/elliotttf/express-request-version.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/elliotttf/express-request-version.svg?branch=master)](https://travis-ci.org/elliotttf/express-request-version)
 [![Coverage Status](https://coveralls.io/repos/elliotttf/express-request-version/badge.svg?branch=master)](https://coveralls.io/r/elliotttf/express-request-version?branch=master)
 
