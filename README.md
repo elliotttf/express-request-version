@@ -22,7 +22,7 @@ Versions can be detected by path:
 ```javascript
 var setVersion = require('express-request-version').setByPath;
 // Sets version for paths like /base/v1/thing.
-app.use(setVersion('/base'));
+app.use(setVersion('/base/'));
 ```
 
 ### Version by semver path
@@ -77,6 +77,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
   * `setByPath(pathPrefix = '/')` - Returns an express middleware that appends a
     version property to the request object based on path.
     * `pathPrefix` - Optional. A path fragment that appears before the version.
+      Must end with a `/`.
   * `setBySemverPath(supportedVersions, pathPrefix = '/', preventPrereleaseLock = false, prereleaseMessage = PRERELEASE_MESSAGE)` - Returns an express
     middleware that appends a matched version and requested version property to the
     request object based on path.
@@ -96,7 +97,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
     * `verSeparator` - Optional. The separator to use between the vendor prefix
       and version.
     * `suffix` - Optional. The accept header suffix. Default '+json'.
-  * `setBySemverAccept(supportedVersions, vndPrefix, verSeparator = '.', suffix = '+json', preventPrereleaseLock = false, prereleaseMessage = PRERELEASE_MESSAGE)` - 
+  * `setBySemverAccept(supportedVersions, vndPrefix, verSeparator = '.', suffix = '+json', preventPrereleaseLock = false, prereleaseMessage = PRERELEASE_MESSAGE)` -
     Returns an express middleware that appends a version property to the request
     object based on accept headers.
     * `supportedVersions` - An array of versions that are supported.
@@ -111,8 +112,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
     * `prereleaseMessage` - Error message to set if a consumer requests a locked
       prerelease version when preventPrereleaseLock is set to true.
       Default `'You cannot lock your request to a prerelease version. Use a version range instead.'`
-  * `validateVersion(supportedVersions = [], message = 'Unsupported version requested.')` - 
+  * `validateVersion(supportedVersions = [], message = 'Unsupported version requested.')` -
     Validate that the request version is present and supported.
     * `supportedVersions` - An array of versions that are supported.
     * `message` - Optional. A message to set for the error.
-
