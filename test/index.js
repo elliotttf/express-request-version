@@ -49,6 +49,13 @@ module.exports = {
         test.done();
       });
     },
+    throwsWithInvalidPrefix(test) {
+      test.expect(1);
+      test.throws(
+        () => version.setByPath('/prefix'),
+        'Invalid prefix not caught');
+      test.done();
+    },
   },
   setBySemverPath: {
     missingSupportedVersions(test) {
@@ -152,6 +159,13 @@ module.exports = {
           test.done();
         });
       },
+    },
+    throwsWithInvalidPrefix(test) {
+      test.expect(1);
+      test.throws(
+        () => version.setBySemverPath(this.supportedVersions, '/prefix'),
+        'Invalid prefix not caught');
+      test.done();
     },
   },
   setByAccept: {
@@ -444,4 +458,3 @@ module.exports = {
     },
   },
 };
-

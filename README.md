@@ -83,6 +83,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
     request object based on path.
     * `supportedVersions` - An array of versions that are supported.
     * `pathPrefix` - Optional. A path fragment that appears before the version.
+      Must end with a `/`.
     * `preventPrereleaseLock` - Optional. Set to true if you wish to prevent
       consumers from locking to a prerelease version. If this is set to true and
       a locked prerelease is requested the server will respond with a 400.
