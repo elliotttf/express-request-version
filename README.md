@@ -32,7 +32,7 @@ Versions can be detected by semvers in the path:
 ```javascript
 var setVersion = require('express-request-version').setBySemverPath;
 // Sets version for paths like /base/^v1.0.0/thing.
-app.use(setVersion(['v1.0.0', 'v1.1.1', 'v2.0.0'], '/base'));
+app.use(setVersion(['v1.0.0', 'v1.1.1', 'v2.0.0'], '/base/'));
 ```
 
 ### Version by accept header
