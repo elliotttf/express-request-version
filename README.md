@@ -76,6 +76,7 @@ app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
 In your controller files, you can add support for multiple versions by importing the
 `multiVersion` helper:
 ```javascript
+var multiVersion = require('express-request-version').multiVersion;
 ...
 router.get(
 '/myPath',
