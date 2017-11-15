@@ -72,6 +72,29 @@ var validateVersion = require('express-request-version').validateVersion;
 app.use(validateVersion([ 'v1', 'v1.1', 'v1.1.1', 'v2' ]));
 ```
 
+## Helper function
+In your controller files, you can add support for multiple versions by importing the
+`multiVersion` helper:
+```javascript
+...
+router.get(
+'/myPath',
+[other middleware],
+multiVersion({
+  '*': version1,
+  'v0.1.0': version2,
+}))
+
+function version1(req, res) {
+  res.send('This is version 1!')
+}
+
+function version2(req, res) {
+  res.send('This is version 2!')
+}
+```
+Note that a default version marked with `'*'` is mandatory.
+
 ## API
 
   * `setByPath(pathPrefix = '/')` - Returns an express middleware that appends a
