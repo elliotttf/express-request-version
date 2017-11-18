@@ -1,7 +1,7 @@
 'use strict';
 
 const version = require('../lib/versioner');
-const { multiVersion } = require('../lib/versioner');
+const { multiVersion, versionSorter } = require('../lib/versioner');
 
 module.exports = {
   setUp(cb) {
@@ -483,7 +483,7 @@ module.exports = {
       };
 
       const version11 = () => {
-        // not called
+        test.ok(false);
       };
 
       const versions = multiVersion({
@@ -503,7 +503,7 @@ module.exports = {
       });
 
       const version1 = () => {
-        // not called
+        test.ok(false);
       };
 
       const version2 = () => {
@@ -530,6 +530,13 @@ module.exports = {
       test.throws(
         () => multiVersion({ 'v1.0.1': () => {} }),
         'No default handler provided.');
+      test.done();
+    },
+    versionSorter(test) {
+      test.expect(3);
+      test.equal(-1, versionSorter('v3.10.0', 'v3.2.0'));
+      test.equal(1, versionSorter('v3.10.0', 'v3.10.1'));
+      test.equal(-1, versionSorter('v3.10.1', '*'));
       test.done();
     },
   },
