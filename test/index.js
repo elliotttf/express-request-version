@@ -1,6 +1,7 @@
 'use strict';
 
 const version = require('../lib/versioner');
+const { multiVersion, versionSorter } = require('../lib/versioner');
 
 module.exports = {
   setUp(cb) {
@@ -455,6 +456,88 @@ module.exports = {
         test.equal('Whoops', err.message, 'Error message not set.');
         test.done();
       });
+    },
+  },
+  multiVersionHelper: {
+    setUp(cb) {
+      this.req = {
+        get(key) {
+          return this[key];
+        },
+      };
+
+      cb();
+    },
+    default(test) {
+      test.expect(2);
+
+      const middleware = version.setBySemverAccept(this.supportedVersions, 'vnd.test');
+      this.req.accept = 'application/vnd.test.v1.0.0+json';
+      middleware(this.req, {}, () => {
+        test.equal(this.req.version, 'v1.0.0', 'Unexpected version');
+      });
+
+      const version1 = () => {
+        test.equal(this.req.version, 'v1.0.0');
+        test.done();
+      };
+
+      const version11 = () => {
+        test.ok(false);
+      };
+
+      const versions = multiVersion({
+        '*': version1,
+        'v1.0.1': version11,
+      });
+
+      versions(this.req, {});
+    },
+    version101(test) {
+      test.expect(2);
+
+      const middleware = version.setBySemverAccept(this.supportedVersions, 'vnd.test');
+      this.req.accept = 'application/vnd.test.v1.0.1+json';
+      middleware(this.req, {}, () => {
+        test.equal(this.req.version, 'v1.0.1', 'Unexpected version');
+      });
+
+      const version1 = () => {
+        test.ok(false);
+      };
+
+      const version2 = () => {
+        test.equal(this.req.version, 'v1.0.1');
+        test.done();
+      };
+
+      const versions = multiVersion({
+        '*': version1,
+        'v1.0.1': version2,
+      });
+
+      versions(this.req, {});
+    },
+    noDefault(test) {
+      test.expect(2);
+
+      const middleware = version.setBySemverAccept(this.supportedVersions, 'vnd.test');
+      this.req.accept = 'application/vnd.test.v1.0.0+json';
+      middleware(this.req, {}, () => {
+        test.equal(this.req.version, 'v1.0.0', 'Unexpected version');
+      });
+
+      test.throws(
+        () => multiVersion({ 'v1.0.1': () => {} }),
+        'No default handler provided.');
+      test.done();
+    },
+    versionSorter(test) {
+      test.expect(3);
+      test.equal(-1, versionSorter('v3.10.0', 'v3.2.0'));
+      test.equal(1, versionSorter('v3.10.0', 'v3.10.1'));
+      test.equal(-1, versionSorter('v3.10.1', '*'));
+      test.done();
     },
   },
 };
