@@ -533,10 +533,11 @@ module.exports = {
       test.done();
     },
     versionSorter(test) {
-      test.expect(3);
+      test.expect(4);
       test.equal(-1, versionSorter('v3.10.0', 'v3.2.0'));
       test.equal(1, versionSorter('v3.10.0', 'v3.10.1'));
       test.equal(-1, versionSorter('v3.10.1', '*'));
+      test.equal(1, versionSorter('*', 'v3.10.1'));
       test.done();
     },
   },
